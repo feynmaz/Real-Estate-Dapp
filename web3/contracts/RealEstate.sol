@@ -221,7 +221,7 @@ contract RealEstate {
         uint256 indexed productId,
         address indexed reviewer,
         uint256 rating,
-        string commment
+        string comment
     );
     event ReviewLiked(
         uint256 indexed productId,
@@ -231,7 +231,28 @@ contract RealEstate {
     );
 
     // Functions
-    function addReview() external {}
+    function addReview(
+        uint256 productId,
+        uint256 rating,
+        string calldata comment,
+        address user
+    ) external {
+        require(rating >= 1 && rating <= 5, "rating must be between 1 and 5");
+
+        Property storage property = properties[productId];
+
+        property.reviewers.push(user);
+        property.reviews.push(comment);
+
+        reviews[productId].push(Review(user, productId, rating, comment, 0));
+        userReviews[user].push(productId);
+        products[productId].totalRating += rating;
+        products[productId].numReviews++;
+
+        emit ReviewAdded(productId, user, rating, comment);
+
+        reviewsCounter++;
+    }
 
     function getProductReviews() external view returns (Review[] memory) {}
 
