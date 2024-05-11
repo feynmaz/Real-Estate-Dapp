@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 contract RealEstate {
+    // #region Property
     // ---- Property ----
     // State
     struct Property {
@@ -189,7 +190,9 @@ contract RealEstate {
 
         return items;
     }
+    // #endregion Property
 
+    // #region Review
     // ---- Review ----
     // State
     struct Review {
@@ -237,4 +240,5 @@ contract RealEstate {
     function likeReview() external {}
 
     function getHighestRatedProduct() external view returns (uint256) {}
+    // #endregion Review
 }
