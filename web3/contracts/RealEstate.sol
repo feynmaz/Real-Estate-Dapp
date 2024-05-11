@@ -3,7 +3,6 @@ pragma solidity ^0.8.9;
 
 contract RealEstate {
     // #region Property
-    // ---- Property ----
     // State
     struct Property {
         uint256 productID;
@@ -195,7 +194,6 @@ contract RealEstate {
     // #endregion Property
 
     // #region Review
-    // ---- Review ----
     // State
     struct Review {
         address reviewer;
