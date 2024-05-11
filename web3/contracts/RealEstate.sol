@@ -254,7 +254,9 @@ contract RealEstate {
         reviewsCounter++;
     }
 
-    function getProductReviews() external view returns (Review[] memory) {}
+    function getProductReviews(uint256 productId) external view returns (Review[] memory) {
+        return reviews[productId];
+    }
 
     function getUserReviews() external view returns (Review[] memory) {}
 
