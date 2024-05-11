@@ -201,7 +201,31 @@ contract RealEstate {
         );
     }
 
-    function getUserProperty() external view returns (Property[] memory) {}
+    function getUserProperty(
+        address user
+    ) external view returns (Property[] memory) {
+        uint256 totalItemCount = propertyIndex;
+        uint256 itemCount = 0;
+        uint256 currentIndex = 0;
+
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (properties[i + 1].owner == user) {
+                itemCount += 1;
+            }
+        }
+
+        Property[] memory items = new Property[](itemCount);
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (properties[i + 1].owner == user) {
+                uint256 currentId = i + 1;
+                Property storage currentItem = properties[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+        }
+
+        return items;
+    }
 
     // Reviews functions
     function addReview() external {}
