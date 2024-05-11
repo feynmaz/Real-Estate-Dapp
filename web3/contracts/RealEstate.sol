@@ -2,5 +2,78 @@
 pragma solidity ^0.8.9;
 
 contract RealEstate {
-    constructor() {}
+    // ---- Property ---- 
+    // State
+    struct Property {
+        uint256 productId;
+        address owner;
+        uint256 price;
+        string propertyTitle;
+        string category;
+        string images;
+        string propertyAddress;
+        address[] reviewers;
+        string[] reviews;
+    }
+
+    // Mapping
+    mapping(uint256 => Property) private properties;
+    uint256 public propertyIndex;
+
+    // Events
+    event PropertyListed(uint256 indexed id, address indexed owner, uint256 price);
+    event PropertySold(uint256 indexed id, address indexed oldOwner, address indexed newOwner, uint256 price);
+    event PropertyResold(uint256 indexed id, address indexed oldOwner, address indexed newOwner, uint256 price);
+
+    // ---- Review ----
+    // State
+    struct Review {
+        address reviewer;
+        uint256 prodcutId;
+        uint256 rating;
+        string comment;
+        uint256 likes;
+    }
+
+    struct Product{
+        uint256 productId;
+        uint256 totalRating;
+        uint256 numReviews;
+    }
+
+    uint256 public reviewsCounter;
+
+    // Mapping
+    mapping(uint256 => Review[]) private reviews;
+    mapping(address => uint256[]) private userReviews;
+    mapping(uint256 => Product) private products;
+
+    // Events
+    event ReviewAdded(uint256 indexed productId, address indexed reviewer, uint256 rating, string commment);
+    event ReviewLiked(uint256 indexed productId, uint256 indexed reviewIndex, address indexed liker, uint256 likes);
+
+
+    // Property functions
+    function listProperty() external returns (uint256) {}
+
+    function updateProperty() external returns (uint256) {}
+
+    function buyProperty() external payable {}
+
+    function getAllProperties() public view returns (Property[] memory) {}
+
+    function getProperty() external view returns (Property memory) {}
+
+    function getUserProperty() external view returns (Property[] memory) {}
+
+    // Reviews functions
+    function addReview() external {}
+
+    function getProductReviews() external view returns (Review[] memory) {}
+
+    function getUserReviews() external view returns (Review[] memory) {}
+
+    function likeReview() external {}
+
+    function getHighestRatedProduct() external view returns (uint256) {}
 }
