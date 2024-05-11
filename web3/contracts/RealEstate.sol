@@ -66,6 +66,8 @@ contract RealEstate {
         property.description = _description;
 
         emit PropertyListed(productId, owner, price);
+
+        return productId;
     }
 
     function updateProperty(
