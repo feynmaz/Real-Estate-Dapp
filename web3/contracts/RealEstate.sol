@@ -129,9 +129,9 @@ contract RealEstate {
         address owner,
         uint256 productId,
         uint256 price
-    ) external returns(string memory) {
+    ) external returns (string memory) {
         Property storage property = properties[productId];
-        
+
         require(property.owner == owner, "You are not the owner.");
 
         property.price = price;
@@ -139,7 +139,21 @@ contract RealEstate {
         return "Your property price is updated";
     }
 
-    function buyProperty() external payable {}
+    function buyProperty(uint256 productId, address buyer) external payable {
+        uint256 amount = msg.value;
+
+        require(amount >= properties[productId].price, "Insufficient funds");
+
+        Property storage property = properties[productId];
+
+        (bool sent, ) = payable(property.owner).call{value: amount}("");
+
+        if (sent) {
+            address oldOwner = property.owner;
+            property.owner = buyer;
+            emit PropertySold(productId, oldOwner, buyer, amount);
+        }
+    }
 
     function getAllProperties() public view returns (Property[] memory) {}
 
