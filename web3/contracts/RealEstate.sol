@@ -40,44 +40,7 @@ contract RealEstate {
         uint256 price
     );
 
-    // ---- Review ----
-    // State
-    struct Review {
-        address reviewer;
-        uint256 prodcutId;
-        uint256 rating;
-        string comment;
-        uint256 likes;
-    }
-
-    struct Product {
-        uint256 productId;
-        uint256 totalRating;
-        uint256 numReviews;
-    }
-
-    uint256 public reviewsCounter;
-
-    // Mapping
-    mapping(uint256 => Review[]) private reviews;
-    mapping(address => uint256[]) private userReviews;
-    mapping(uint256 => Product) private products;
-
-    // Events
-    event ReviewAdded(
-        uint256 indexed productId,
-        address indexed reviewer,
-        uint256 rating,
-        string commment
-    );
-    event ReviewLiked(
-        uint256 indexed productId,
-        uint256 indexed reviewIndex,
-        address indexed liker,
-        uint256 likes
-    );
-
-    // Property functions
+    // Functions
     function listProperty(
         address owner,
         uint256 price,
@@ -227,7 +190,44 @@ contract RealEstate {
         return items;
     }
 
-    // Reviews functions
+    // ---- Review ----
+    // State
+    struct Review {
+        address reviewer;
+        uint256 prodcutId;
+        uint256 rating;
+        string comment;
+        uint256 likes;
+    }
+
+    struct Product {
+        uint256 productId;
+        uint256 totalRating;
+        uint256 numReviews;
+    }
+
+    uint256 public reviewsCounter;
+
+    // Mapping
+    mapping(uint256 => Review[]) private reviews;
+    mapping(address => uint256[]) private userReviews;
+    mapping(uint256 => Product) private products;
+
+    // Events
+    event ReviewAdded(
+        uint256 indexed productId,
+        address indexed reviewer,
+        uint256 rating,
+        string commment
+    );
+    event ReviewLiked(
+        uint256 indexed productId,
+        uint256 indexed reviewIndex,
+        address indexed liker,
+        uint256 likes
+    );
+
+    // Functions
     function addReview() external {}
 
     function getProductReviews() external view returns (Review[] memory) {}
