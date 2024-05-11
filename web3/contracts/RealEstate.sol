@@ -161,7 +161,7 @@ contract RealEstate {
 
         Property[] memory items = new Property[](itemsCount);
 
-        for(uint256 i = 0; i < itemsCount; i++){
+        for (uint256 i = 0; i < itemsCount; i++) {
             uint256 currentId = i + 1;
 
             Property storage currentItem = properties[currentId];
@@ -172,7 +172,34 @@ contract RealEstate {
         return items;
     }
 
-    function getProperty() external view returns (Property memory) {}
+    function getProperty(
+        uint256 productId
+    )
+        external
+        view
+        returns (
+            uint256,
+            address,
+            uint256,
+            string memory,
+            string memory,
+            string memory,
+            string memory,
+            string memory
+        )
+    {
+        Property memory property = properties[productId];
+        return (
+            property.productID,
+            property.owner,
+            property.price,
+            property.propertyTitle,
+            property.category,
+            property.images,
+            property.propertyAddress,
+            property.description
+        );
+    }
 
     function getUserProperty() external view returns (Property[] memory) {}
 
