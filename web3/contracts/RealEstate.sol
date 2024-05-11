@@ -155,7 +155,22 @@ contract RealEstate {
         }
     }
 
-    function getAllProperties() public view returns (Property[] memory) {}
+    function getAllProperties() public view returns (Property[] memory) {
+        uint256 itemsCount = propertyIndex;
+        uint256 currentIndex = 0;
+
+        Property[] memory items = new Property[](itemsCount);
+
+        for(uint256 i = 0; i < itemsCount; i++){
+            uint256 currentId = i + 1;
+
+            Property storage currentItem = properties[currentId];
+            items[currentIndex] = currentItem;
+            currentIndex += 1;
+        }
+
+        return items;
+    }
 
     function getProperty() external view returns (Property memory) {}
 
