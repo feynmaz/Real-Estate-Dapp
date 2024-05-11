@@ -125,6 +125,20 @@ contract RealEstate {
         return productId;
     }
 
+    function updatePrice(
+        address owner,
+        uint256 productId,
+        uint256 price
+    ) external returns(string memory) {
+        Property storage property = properties[productId];
+        
+        require(property.owner == owner, "You are not the owner.");
+
+        property.price = price;
+
+        return "Your property price is updated";
+    }
+
     function buyProperty() external payable {}
 
     function getAllProperties() public view returns (Property[] memory) {}
