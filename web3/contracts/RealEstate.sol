@@ -52,7 +52,7 @@ contract RealEstate {
     ) external returns (uint256) {
         require(price > 0, "Price must be greater than 0.");
 
-        uint256 productId = propertyIndex++;
+        uint256 productId = propertyIndex;
         Property storage property = properties[productId];
 
         property.productID = productId;
@@ -66,6 +66,7 @@ contract RealEstate {
 
         emit PropertyListed(productId, owner, price);
 
+        propertyIndex = propertyIndex + 1;
         return productId;
     }
 
@@ -173,23 +174,20 @@ contract RealEstate {
     function getUserProperty(
         address user
     ) external view returns (Property[] memory) {
-        uint256 totalItemCount = propertyIndex;
         uint256 itemCount = 0;
-        uint256 currentIndex = 0;
-
-        for (uint256 i = 0; i < totalItemCount; i++) {
-            if (properties[i + 1].owner == user) {
+        for (uint256 i = 0; i < propertyIndex; i++) {
+            if (properties[i].owner == user) {
                 itemCount += 1;
             }
         }
 
+        uint256 itemIndex = 0;
         Property[] memory items = new Property[](itemCount);
-        for (uint256 i = 0; i < totalItemCount; i++) {
-            if (properties[i + 1].owner == user) {
-                uint256 currentId = i + 1;
-                Property storage currentItem = properties[currentId];
-                items[currentIndex] = currentItem;
-                currentIndex += 1;
+        for (uint256 i = 0; i < propertyIndex; i++) {
+            if (properties[i].owner == user) {
+                Property storage item = properties[i];
+                items[itemIndex] = item;
+                itemIndex += 1;
             }
         }
 
