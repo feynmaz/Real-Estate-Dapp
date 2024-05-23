@@ -131,17 +131,11 @@ contract RealEstate {
     }
 
     function getAllProperties() public view returns (Property[] memory) {
-        uint256 itemsCount = propertyIndex;
-        uint256 currentIndex = 0;
+        Property[] memory items = new Property[](propertyIndex);
 
-        Property[] memory items = new Property[](itemsCount);
-
-        for (uint256 i = 0; i < itemsCount; i++) {
-            uint256 currentId = i + 1;
-
-            Property storage currentItem = properties[currentId];
-            items[currentIndex] = currentItem;
-            currentIndex += 1;
+        for (uint256 i = 0; i < propertyIndex; i++) {
+            Property storage currentItem = properties[i];
+            items[i] = currentItem;
         }
 
         return items;
