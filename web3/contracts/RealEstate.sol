@@ -81,11 +81,21 @@ contract RealEstate {
         Property storage property = properties[productId];
         require(property.owner == owner, "You are not the owner.");
 
-        property.propertyTitle = _propertyTitle;
-        property.category = _category;
-        property.images = _images;
-        property.propertyAddress = _propertyAddress;
-        property.description = _description;
+        if (bytes(_propertyTitle).length > 0) {
+            property.propertyTitle = _propertyTitle;
+        }
+        if (bytes(_category).length > 0) {
+            property.category = _category;
+        }
+        if (bytes(_images).length > 0) {
+            property.images = _images;
+        }
+        if (bytes(_propertyAddress).length > 0) {
+            property.propertyAddress = _propertyAddress;
+        }
+        if (bytes(_description).length > 0) {
+            property.description = _description;
+        }
 
         return productId;
     }
