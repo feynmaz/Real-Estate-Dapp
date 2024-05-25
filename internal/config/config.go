@@ -7,9 +7,10 @@ import (
 )
 
 type Config struct {
-	LogLevel  int       `mapstructure:"log_level"`
-	Server    Server    `mapstructure:"server"`
-	EthClient EthClient `mapstructure:"eth_client"`
+	LogLevel    int         `mapstructure:"log_level"`
+	Server      Server      `mapstructure:"server"`
+	EthClient   EthClient   `mapstructure:"eth_client"`
+	Web3Account Web3Account `mapstructure:"web3_account"`
 }
 
 type Server struct {
@@ -19,6 +20,11 @@ type Server struct {
 
 type EthClient struct {
 	Url string `mapstructure:"url"`
+}
+
+type Web3Account struct {
+	Address    string `mapstructure:"address"`
+	PrivateKey string `mapstructure:"private_key"`
 }
 
 func Load(path string) (*Config, error) {
