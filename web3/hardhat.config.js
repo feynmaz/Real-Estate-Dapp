@@ -1,15 +1,15 @@
 /** @type import('hardhat/config').HardhatUserConfig */
 require('dotenv').config();
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const RPC_URL = "https://rpc.ankr.com/polygon_amoy"
+const RPC_URL = "https://rpc.ankr.com/eth_sepolia"
 
 module.exports = {
-  defaultNetwork: "polygon_amoy",
+  defaultNetwork: "eth_sepolia",
   networks: {
     hardhat: {
       chainId: 80002,
     },
-    polygon_amoy: {
+    eth_sepolia: {
       url: RPC_URL,
       accounts: [`0x${PRIVATE_KEY}`]
     }
